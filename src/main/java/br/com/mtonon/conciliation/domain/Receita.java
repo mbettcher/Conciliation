@@ -1,16 +1,52 @@
 package br.com.mtonon.conciliation.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
-public class Receita {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "receita")
+public class Receita implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "codigo")
 	private Long id;
+	
+	@Column(name = "descricao_receita")
 	private String descricao;
+	
+	@Column(name = "imposto_proprio")
 	private Boolean proprio;
+	
+	@Column(name = "percentual_repasse")
 	private Double percentual;
+	
+	@Column(name = "ativo")
 	private Boolean ativo;
+	
+	@Column(name = "data_cadastro")
 	private LocalDateTime dataCadastro;
+	
+	@ManyToMany(mappedBy = "receitas")
+	private List<MovimentoReceita> movimentosReceita = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "id.receita")
+	private Set<ItemMovimentoReceita> itens = new HashSet<>();
 	
 	public Receita() {
 	}
@@ -24,6 +60,14 @@ public class Receita {
 		this.percentual = percentual;
 		this.ativo = ativo;
 		this.dataCadastro = dataCadastro;
+	}
+	
+	public List<MovimentoReceita> getDespesas(){
+		List<MovimentoReceita> lista = new ArrayList<>();
+		for(ItemMovimentoReceita x : itens) {
+			lista.add(x.getMovimentoReceita());
+		}
+		return lista;
 	}
 
 	public Long getId() {
@@ -72,6 +116,14 @@ public class Receita {
 
 	public void setDataCadastro(LocalDateTime dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public Set<ItemMovimentoReceita> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemMovimentoReceita> itens) {
+		this.itens = itens;
 	}
 
 	@Override
