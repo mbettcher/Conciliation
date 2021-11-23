@@ -17,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "receita")
 public class Receita implements Serializable{
@@ -46,6 +48,7 @@ public class Receita implements Serializable{
 	private List<MovimentoReceita> movimentosReceita = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "id.receita")
+	@JsonIgnore
 	private Set<ItemMovimentoReceita> itens = new HashSet<>();
 	
 	public Receita() {
@@ -62,6 +65,7 @@ public class Receita implements Serializable{
 		this.dataCadastro = dataCadastro;
 	}
 	
+	@JsonIgnore
 	public List<MovimentoReceita> getDespesas(){
 		List<MovimentoReceita> lista = new ArrayList<>();
 		for(ItemMovimentoReceita x : itens) {
