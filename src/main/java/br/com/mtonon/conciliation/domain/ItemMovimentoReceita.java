@@ -8,11 +8,14 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "item_receita")
 public class ItemMovimentoReceita implements Serializable{
 	private static final long serialVersionUID = 1L;
 
+	@JsonIgnore
 	@EmbeddedId
 	@Column(name = "codigo")
 	private ItemMovimentoReceitaPK id = new ItemMovimentoReceitaPK();
@@ -35,9 +38,11 @@ public class ItemMovimentoReceita implements Serializable{
 	}
 
 
+	@JsonIgnore
 	public MovimentoReceita getMovimentoReceita() {
 		return this.id.getMovimentoReceita();
 	}
+
 
 	public Receita getReceita() {
 		return this.id.getReceita();

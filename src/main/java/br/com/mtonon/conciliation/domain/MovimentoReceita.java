@@ -19,6 +19,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "movimento_receita")
 public class MovimentoReceita implements Serializable{
@@ -34,10 +37,12 @@ public class MovimentoReceita implements Serializable{
 	
 	@Column(name = "competencia")
 	private Integer mes;
-	
+
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "data_movimento")
 	private LocalDate dataMovimento;
 
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "movimento_tem_receita",
 		joinColumns = @JoinColumn(name = "movimento_codigo"),
