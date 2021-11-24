@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 import br.com.mtonon.conciliation.domain.Receita;
 import br.com.mtonon.conciliation.repository.ReceitaRepository;
 import br.com.mtonon.conciliation.service.exception.DataIntegrityException;
+import br.com.mtonon.conciliation.service.exception.ObjectNotFoundException;
 
 @Service
 public class ReceitaService implements Serializable{
@@ -28,7 +28,7 @@ public class ReceitaService implements Serializable{
 	
 	public Receita findById(Long id) {
 		Optional<Receita> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(null, 
+		return obj.orElseThrow(() -> new ObjectNotFoundException( 
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Receita.class.getName()
 				));
 	}
