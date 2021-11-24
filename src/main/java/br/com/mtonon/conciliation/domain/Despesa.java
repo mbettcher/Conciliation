@@ -3,8 +3,10 @@ package br.com.mtonon.conciliation.domain;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,9 +14,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "despesa")
@@ -42,8 +46,13 @@ public class Despesa implements Serializable{
 	@Column(name = "data_cadastro")
 	private LocalDateTime dataCadastro;
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy = "despesas")
 	private List<MovimentoDespesa> movimentosDespesa = new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "id.despesa")
+	private Set<ItemMovimentoDespesa> itens = new HashSet<>();
 	
 	public Despesa() {
 	}
@@ -56,6 +65,15 @@ public class Despesa implements Serializable{
 		this.fundeb = fundeb;
 		this.ativo = ativo;
 		this.dataCadastro = dataCadastro;
+	}
+	
+	@JsonIgnore
+	public List<MovimentoDespesa> getMovimentos() {
+		List<MovimentoDespesa> lista = new ArrayList<>();
+		for(ItemMovimentoDespesa x : itens) {
+			lista.add(x.getMovimentoDespesa());
+		}
+		return lista;
 	}
 
 	public Long getId() {
@@ -104,6 +122,22 @@ public class Despesa implements Serializable{
 
 	public void setDataCadastro(LocalDateTime dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public List<MovimentoDespesa> getMovimentosDespesa() {
+		return movimentosDespesa;
+	}
+
+	public void setMovimentosDespesa(List<MovimentoDespesa> movimentosDespesa) {
+		this.movimentosDespesa = movimentosDespesa;
+	}
+
+	public Set<ItemMovimentoDespesa> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemMovimentoDespesa> itens) {
+		this.itens = itens;
 	}
 
 	@Override
