@@ -9,26 +9,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.mtonon.conciliation.domain.MovimentoReceita;
-import br.com.mtonon.conciliation.service.MovimentoReceitaService;
+import br.com.mtonon.conciliation.domain.MovimentoDespesa;
+import br.com.mtonon.conciliation.service.MovimentoDespesaService;
 
 @RestController
-@RequestMapping(value = "/movimentos/receitas")
-public class MovimentoReceitaResource {
+@RequestMapping(value = "/movimentos/despesas")
+public class MovimentoDespesaResource {
 
 	@Autowired
-	private MovimentoReceitaService movimentoReceitaService;
+	private MovimentoDespesaService movimentoDespesaService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<MovimentoReceita>> findAll(){
-		List<MovimentoReceita> list = movimentoReceitaService.findAll();
+	public ResponseEntity<List<MovimentoDespesa>> findAll(){
+		List<MovimentoDespesa> list = movimentoDespesaService.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<MovimentoReceita> findById(@PathVariable Long id) {
-		MovimentoReceita obj = movimentoReceitaService.findById(id);
+	public ResponseEntity<MovimentoDespesa> findById(@PathVariable Long id) {
+		MovimentoDespesa obj = movimentoDespesaService.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
-	
 }
