@@ -4,22 +4,42 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "despesa")
 public class Despesa implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	
+	@Id
+	@Column(name = "codigo")
 	private Long id;
+	
+	@Column(name = "conta")
+	private String conta;
+	
+	@Column(name = "descricao")
 	private String descricao;
+	
+	@Column(name = "percentual_fundeb")
 	private Double fundeb;
+	
+	@Column(name = "ativo")
 	private Boolean ativo;
+	
+	@Column(name = "data_cadastro")
 	private LocalDateTime dataCadastro;
 	
 	public Despesa() {
 	}
 
-	public Despesa(Long id, String descricao, Double fundeb, Boolean ativo, LocalDateTime dataCadastro) {
+	public Despesa(Long id, String conta, String descricao, Double fundeb, Boolean ativo, LocalDateTime dataCadastro) {
 		super();
 		this.id = id;
+		this.conta = conta;
 		this.descricao = descricao;
 		this.fundeb = fundeb;
 		this.ativo = ativo;
@@ -32,6 +52,14 @@ public class Despesa implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getConta() {
+		return conta;
+	}
+
+	public void setConta(String conta) {
+		this.conta = conta;
 	}
 
 	public String getDescricao() {
