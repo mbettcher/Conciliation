@@ -9,9 +9,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import br.com.mtonon.conciliation.domain.Despesa;
 import br.com.mtonon.conciliation.domain.ItemMovimentoReceita;
 import br.com.mtonon.conciliation.domain.MovimentoReceita;
 import br.com.mtonon.conciliation.domain.Receita;
+import br.com.mtonon.conciliation.repository.DespesaRepository;
 import br.com.mtonon.conciliation.repository.ItemMovimentoReceitaRepository;
 import br.com.mtonon.conciliation.repository.MovimentoReceitaRepository;
 import br.com.mtonon.conciliation.repository.ReceitaRepository;
@@ -27,6 +29,9 @@ public class ConciliationApplication implements CommandLineRunner{
 	
 	@Autowired
 	private ItemMovimentoReceitaRepository itemMovimentoReceitaRepository;
+	
+	@Autowired
+	private DespesaRepository despesaRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ConciliationApplication.class, args);
@@ -70,6 +75,13 @@ public class ConciliationApplication implements CommandLineRunner{
 		
 		itemMovimentoReceitaRepository.saveAll(Arrays.asList(itemReceita1, itemReceita2, itemReceita3, itemReceita4));
 	
+		Despesa d1 = new Despesa(null, "3.1.90.04", "Ensino Fundamental Contrato Determinado", 0.30, true, LocalDateTime.now());
+		Despesa d2 = new Despesa(null, "3.1.90.11", "Ensino Fundamental Vencimento Vantagens Fixas", 0.30, true, LocalDateTime.now());
+		Despesa d3 = new Despesa(null, "3.1.90.16", "Ensino Fundamental Outras Despesas Pessoal", 0.30, true, LocalDateTime.now());
+		Despesa d4 = new Despesa(null, "3.1.90.13", "Ensino Fundamental Obrigações Patronais INSS", 0.30, true, LocalDateTime.now());
+		Despesa d5 = new Despesa(null, "3.1.91.13", "Ensino Fundamental Obrigações Patronais IPG", 0.30, true, LocalDateTime.now());
+		
+		despesaRepository.saveAll(Arrays.asList(d1,d2,d3,d4,d5));
 	}
 
 

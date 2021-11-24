@@ -6,8 +6,12 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "despesa")
@@ -15,6 +19,7 @@ public class Despesa implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "codigo")
 	private Long id;
 	
@@ -30,6 +35,7 @@ public class Despesa implements Serializable{
 	@Column(name = "ativo")
 	private Boolean ativo;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	@Column(name = "data_cadastro")
 	private LocalDateTime dataCadastro;
 	
