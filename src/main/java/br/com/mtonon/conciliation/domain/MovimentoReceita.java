@@ -37,16 +37,16 @@ public class MovimentoReceita implements Serializable{
 	
 	@Column(name = "data_movimento")
 	private LocalDate dataMovimento;
-	
+
 	@ManyToMany
 	@JoinTable(name = "movimento_tem_receita",
-			joinColumns = @JoinColumn(name = "movimento_codigo"),
-			inverseJoinColumns = @JoinColumn(name = "receita_codigo")
+		joinColumns = @JoinColumn(name = "movimento_codigo"),
+		inverseJoinColumns = @JoinColumn(name = "receita_codigo")
 	)
 	private List<Receita> receitas = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "id.movimentoReceita")
-	private Set<ItemMovimentoReceita> itens = new HashSet<>(); 
+	private Set<ItemMovimentoReceita> itens = new HashSet<>();
 	
 	public MovimentoReceita() {
 	}
@@ -90,14 +90,7 @@ public class MovimentoReceita implements Serializable{
 	public void setDataMovimento(LocalDate dataMovimento) {
 		this.dataMovimento = dataMovimento;
 	}
-	
-	public Set<ItemMovimentoReceita> getItens() {
-		return itens;
-	}
 
-	public void setItens(Set<ItemMovimentoReceita> itens) {
-		this.itens = itens;
-	}
 
 	public List<Receita> getReceitas() {
 		return receitas;
@@ -105,6 +98,14 @@ public class MovimentoReceita implements Serializable{
 
 	public void setReceitas(List<Receita> receitas) {
 		this.receitas = receitas;
+	}
+
+	public Set<ItemMovimentoReceita> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemMovimentoReceita> itens) {
+		this.itens = itens;
 	}
 
 	@Override

@@ -12,7 +12,7 @@ public class ItemMovimentoReceitaPK implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
-	@JoinColumn(name = "movimento_receita_id")
+	@JoinColumn(name = "movimento_id")
 	private MovimentoReceita movimentoReceita;
 	
 	@ManyToOne

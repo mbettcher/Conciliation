@@ -33,21 +33,14 @@ public class ItemMovimentoReceita implements Serializable{
 		this.valorArrecadado = valorArrecadado;
 		this.valorDeposito = valorDeposito;
 	}
-	
+
+
 	public MovimentoReceita getMovimentoReceita() {
 		return this.id.getMovimentoReceita();
 	}
-	
+
 	public Receita getReceita() {
 		return this.id.getReceita();
-	}
-
-	public ItemMovimentoReceitaPK getId() {
-		return id;
-	}
-
-	public void setId(ItemMovimentoReceitaPK id) {
-		this.id = id;
 	}
 
 	public Double getValorArrecadado() {
