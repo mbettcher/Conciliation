@@ -9,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import br.com.mtonon.conciliation.domain.Receita;
+import br.com.mtonon.conciliation.dto.ReceitaDTO;
 import br.com.mtonon.conciliation.repository.ReceitaRepository;
 import br.com.mtonon.conciliation.service.exception.DataIntegrityException;
 import br.com.mtonon.conciliation.service.exception.ObjectNotFoundException;
@@ -52,5 +53,10 @@ public class ReceitaService implements Serializable{
 					"Não é possível excluir uma Receita que esteja sendo usada por outra tabela!"
 					);
 		}
+	}
+	
+	public Receita fromDTO(ReceitaDTO objDTO) {
+		return new Receita(objDTO.getId(), objDTO.getDescricao(), objDTO.getProprio(), 
+				objDTO.getPercentual(), objDTO.getAtivo(), null);
 	}
 }
