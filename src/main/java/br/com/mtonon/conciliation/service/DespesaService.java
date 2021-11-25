@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.mtonon.conciliation.domain.Despesa;
+import br.com.mtonon.conciliation.dto.DespesaDTO;
 import br.com.mtonon.conciliation.repository.DespesaRepository;
 import br.com.mtonon.conciliation.service.exception.DataIntegrityException;
 import br.com.mtonon.conciliation.service.exception.ObjectNotFoundException;
@@ -37,8 +38,9 @@ public class DespesaService implements Serializable{
 	}
 	
 	public Despesa update(Despesa obj) {
-		findById(obj.getId());
-		return repo.save(obj);
+		Despesa newObj = findById(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 	
 	public void delete(Long id) {
@@ -50,5 +52,16 @@ public class DespesaService implements Serializable{
 					"Não é possível excluir uma Despesa que esteja sendo usada por outra tabela!"
 					);
 		}
+	}
+	
+	public Despesa fromDTO(DespesaDTO objDTO) {
+		return new Despesa(objDTO.getId(), objDTO.getConta(), objDTO.getDescricao(), objDTO.getFundeb(), objDTO.getAtivo(), null);
+	}
+	
+	private void updateData(Despesa newObj, Despesa obj) {
+		newObj.setConta(obj.getConta());
+		newObj.setDescricao(obj.getDescricao());
+		newObj.setFundeb(obj.getFundeb());
+		newObj.setAtivo(obj.getAtivo());
 	}
 }
