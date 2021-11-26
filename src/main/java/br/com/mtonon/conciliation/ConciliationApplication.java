@@ -55,41 +55,53 @@ public class ConciliationApplication implements CommandLineRunner{
 		Receita receita2 = new Receita(null, "FPM", false, 0.05, true, LocalDateTime.now());
 		Receita receita3 = new Receita(null, "IPI", false, 0.05, true, LocalDateTime.now());
 		Receita receita4 = new Receita(null, "LEI COMPLEMENTAR 87/96", false, 0.05, true, LocalDateTime.now());
+		Receita receita5 = new Receita(null, "ITR", false, 0.05, true, LocalDateTime.now());
+		Receita receita6 = new Receita(null, "IPVA", false, 0.05, true, LocalDateTime.now());
+		Receita receita7 = new Receita(null, "IPTU", true, 0.25, true, LocalDateTime.now());
 		
 		/* Instanciação do objeto MovimentoReceita*/
-		MovimentoReceita movimento1 = new MovimentoReceita(null, 2021, 1, LocalDate.now());
+		MovimentoReceita movimento1 = new MovimentoReceita(null, 2021, 1, LocalDate.now(), 274.42, 474.27, 8601675.33);
 		
 		/* Peenchimento da Lista */
 		receita1.getMovimentosReceita().addAll(Arrays.asList(movimento1));
 		receita2.getMovimentosReceita().addAll(Arrays.asList(movimento1));
 		receita3.getMovimentosReceita().addAll(Arrays.asList(movimento1));
 		receita4.getMovimentosReceita().addAll(Arrays.asList(movimento1));
+		receita5.getMovimentosReceita().addAll(Arrays.asList(movimento1));
+		receita6.getMovimentosReceita().addAll(Arrays.asList(movimento1));
+		receita7.getMovimentosReceita().addAll(Arrays.asList(movimento1));
 		
 		/* Preenchimento da lista*/
-		movimento1.getReceitas().addAll(Arrays.asList(receita1,receita2,receita3,receita4));
+		movimento1.getReceitas().addAll(Arrays.asList(receita1,receita2,receita3,receita4,receita5,receita6,receita7));
 		
-		receitaRepository.saveAll(Arrays.asList(receita1, receita2, receita3, receita4));
+		receitaRepository.saveAll(Arrays.asList(receita1, receita2, receita3, receita4,receita5,receita6,receita7));
 		movimentoReceitaRepository.saveAll(Arrays.asList(movimento1));
 		
 		
-		ItemMovimentoReceita itemReceita1 = new ItemMovimentoReceita(movimento1, receita1, 2854606.27, 142730.31);
-		ItemMovimentoReceita itemReceita2 = new ItemMovimentoReceita(movimento1, receita2, 4982544.64, 249127.23);
-		ItemMovimentoReceita itemReceita3 = new ItemMovimentoReceita(movimento1, receita3, 53519.54, 2675.98);
-		ItemMovimentoReceita itemReceita4 = new ItemMovimentoReceita(movimento1, receita4, 0.00, 0.00);
+		ItemMovimentoReceita itemReceita1 = new ItemMovimentoReceita(movimento1, receita1, 2854606.27);
+		ItemMovimentoReceita itemReceita2 = new ItemMovimentoReceita(movimento1, receita2, 4982544.64);
+		ItemMovimentoReceita itemReceita3 = new ItemMovimentoReceita(movimento1, receita3, 53519.54);
+		ItemMovimentoReceita itemReceita4 = new ItemMovimentoReceita(movimento1, receita4, 0.00);
+		ItemMovimentoReceita itemReceita5 = new ItemMovimentoReceita(movimento1, receita5, 652.63);
+		ItemMovimentoReceita itemReceita6 = new ItemMovimentoReceita(movimento1, receita6, 1084912.83);
+		ItemMovimentoReceita itemReceita7 = new ItemMovimentoReceita(movimento1, receita7, 11065769.37);
 		
-		movimento1.getItens().addAll(Arrays.asList(itemReceita1,itemReceita2,itemReceita3,itemReceita4));
+		movimento1.getItens().addAll(Arrays.asList(itemReceita1,itemReceita2,itemReceita3,itemReceita4,itemReceita5,itemReceita6,itemReceita7));
 		receita1.getItens().add(itemReceita1);
 		receita2.getItens().add(itemReceita2);
 		receita3.getItens().add(itemReceita3);
 		receita4.getItens().add(itemReceita4);
+		receita5.getItens().add(itemReceita5);
+		receita6.getItens().add(itemReceita6);
+		receita6.getItens().add(itemReceita7);
 		
-		itemMovimentoReceitaRepository.saveAll(Arrays.asList(itemReceita1, itemReceita2, itemReceita3, itemReceita4));
+		itemMovimentoReceitaRepository.saveAll(Arrays.asList(itemReceita1, itemReceita2, itemReceita3, itemReceita4, itemReceita5, itemReceita6, itemReceita7));
 	
-		Despesa d1 = new Despesa(null, "3.1.90.04", "Ensino Fundamental Contrato Determinado", 0.30, true, LocalDateTime.now());
-		Despesa d2 = new Despesa(null, "3.1.90.11", "Ensino Fundamental Vencimento Vantagens Fixas", 0.30, true, LocalDateTime.now());
-		Despesa d3 = new Despesa(null, "3.1.90.16", "Ensino Fundamental Outras Despesas Pessoal", 0.30, true, LocalDateTime.now());
-		Despesa d4 = new Despesa(null, "3.1.90.13", "Ensino Fundamental Obrigações Patronais INSS", 0.30, true, LocalDateTime.now());
-		Despesa d5 = new Despesa(null, "3.1.91.13", "Ensino Fundamental Obrigações Patronais IPG", 0.30, true, LocalDateTime.now());
+		Despesa d1 = new Despesa(null, "3.1.90.04", "Ensino Fundamental Contrato Determinado", 0.70, true, LocalDateTime.now());
+		Despesa d2 = new Despesa(null, "3.1.90.11", "Ensino Fundamental Vencimento Vantagens Fixas", 0.70, true, LocalDateTime.now());
+		Despesa d3 = new Despesa(null, "3.1.90.16", "Ensino Fundamental Outras Despesas Pessoal", 0.70, true, LocalDateTime.now());
+		Despesa d4 = new Despesa(null, "3.1.90.13", "Ensino Fundamental Obrigações Patronais INSS", 0.70, true, LocalDateTime.now());
+		Despesa d5 = new Despesa(null, "3.1.91.13", "Ensino Fundamental Obrigações Patronais IPG", 0.70, true, LocalDateTime.now());
 		
 		MovimentoDespesa md1 = new MovimentoDespesa(null, 2021, 1, LocalDate.now());
 		

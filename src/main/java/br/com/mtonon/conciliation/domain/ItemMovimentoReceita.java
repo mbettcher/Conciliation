@@ -23,20 +23,15 @@ public class ItemMovimentoReceita implements Serializable{
 	@Column(name = "total_arrecadado")
 	private Double valorArrecadado;
 	
-	@Column(name = "total_deposito")
-	private Double valorDeposito;
-	
 	public ItemMovimentoReceita() {
 	}
 
-	public ItemMovimentoReceita(MovimentoReceita movimentoReceita, Receita receita, Double valorArrecadado, Double valorDeposito) {
+	public ItemMovimentoReceita(MovimentoReceita movimentoReceita, Receita receita, Double valorArrecadado) {
 		super();
 		this.id.setMovimentoReceita(movimentoReceita);
 		this.id.setReceita(receita);
 		this.valorArrecadado = valorArrecadado;
-		this.valorDeposito = valorDeposito;
 	}
-
 
 	@JsonIgnore
 	public MovimentoReceita getMovimentoReceita() {
@@ -56,13 +51,6 @@ public class ItemMovimentoReceita implements Serializable{
 		this.valorArrecadado = valorArrecadado;
 	}
 
-	public Double getValorDeposito() {
-		return valorDeposito;
-	}
-
-	public void setValorDeposito(Double valorDeposito) {
-		this.valorDeposito = valorDeposito;
-	}
 
 	@Override
 	public int hashCode() {

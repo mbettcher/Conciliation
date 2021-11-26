@@ -32,7 +32,7 @@ public class ItemMovimentoDespesa implements Serializable{
 		this.id.setDespesa(despesa);
 		this.valor = valor;
 	}
-	
+
 	@JsonIgnore
 	public MovimentoDespesa getMovimentoDespesa() {
 		return this.id.getMovimentoDespesa();

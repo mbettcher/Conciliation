@@ -62,6 +62,14 @@ public class MovimentoDespesa implements Serializable{
 		this.dataMovimento = dataMovimento;
 	}
 
+	public double getTotalDespesa() {
+		double soma = 0.00;
+		for(ItemMovimentoDespesa id : itens) {
+			soma = soma + id.getValor();
+		}
+		return soma;
+	}
+	
 	public Long getId() {
 		return id;
 	}

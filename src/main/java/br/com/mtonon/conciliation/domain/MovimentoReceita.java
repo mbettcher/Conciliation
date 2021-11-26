@@ -41,6 +41,12 @@ public class MovimentoReceita implements Serializable{
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "data_movimento")
 	private LocalDate dataMovimento;
+	
+	private double rendimentoF30;
+	
+	private double rendimentoF70;
+	
+	private double repasseDoFundeb;
 
 	@JsonIgnore
 	@ManyToMany
@@ -56,13 +62,46 @@ public class MovimentoReceita implements Serializable{
 	public MovimentoReceita() {
 	}
 
-	public MovimentoReceita(Long id, Integer ano, Integer mes, LocalDate dataMovimento) {
+	public MovimentoReceita(Long id, Integer ano, Integer mes, LocalDate dataMovimento, double rendimentoF30,
+			double rendimentoF70, double repasseDoFundeb) {
 		super();
 		this.id = id;
 		this.ano = ano;
 		this.mes = mes;
 		this.dataMovimento = dataMovimento;
+		this.rendimentoF30 = rendimentoF30;
+		this.rendimentoF70 = rendimentoF70;
+		this.repasseDoFundeb = repasseDoFundeb;
 	}
+	
+	public double getTotalRendimentos() {
+		return rendimentoF30 + rendimentoF70;
+	}
+	
+	public double getTotalRendimentosMaisRepasse() {
+		return  rendimentoF30 + rendimentoF70 + repasseDoFundeb;
+	}
+
+	public double getSubtotalNaoProprio() {
+		double soma = 0.0;
+		for(ItemMovimentoReceita ir : itens) {
+			if(!ir.getReceita().getProprio()) {
+				soma = soma + ir.getValorArrecadado();
+			}
+		}
+		return soma;
+	}
+	
+	public float getSubtotalProprio() {
+		double soma = 0.0;
+		for(ItemMovimentoReceita ir : itens) {
+			if(ir.getReceita().getProprio()) {
+				soma = soma + ir.getValorArrecadado();
+			}
+		}
+		return (float) soma;
+	}
+	
 
 	public Long getId() {
 		return id;
@@ -96,6 +135,30 @@ public class MovimentoReceita implements Serializable{
 		this.dataMovimento = dataMovimento;
 	}
 
+
+	public double getRendimentoF30() {
+		return rendimentoF30;
+	}
+
+	public void setRendimentoF30(double rendimentoF30) {
+		this.rendimentoF30 = rendimentoF30;
+	}
+
+	public double getRendimentoF70() {
+		return rendimentoF70;
+	}
+
+	public void setRendimentoF70(double rendimentoF70) {
+		this.rendimentoF70 = rendimentoF70;
+	}
+
+	public double getRepasseDoFundeb() {
+		return repasseDoFundeb;
+	}
+
+	public void setRepasseDoFundeb(double repasseDoFundeb) {
+		this.repasseDoFundeb = repasseDoFundeb;
+	}
 
 	public List<Receita> getReceitas() {
 		return receitas;
