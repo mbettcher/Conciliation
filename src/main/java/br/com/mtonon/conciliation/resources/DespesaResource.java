@@ -3,6 +3,7 @@ package br.com.mtonon.conciliation.resources;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +26,10 @@ public class DespesaResource {
 	private DespesaService despesaService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Despesa>> findAll(){
+	public ResponseEntity<List<DespesaDTO>> findAll(){
 		List<Despesa> list = despesaService.findAll();
-		return ResponseEntity.ok().body(list);
+		List<DespesaDTO> listDTO = list.stream().map(obj -> new DespesaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)

@@ -40,8 +40,9 @@ public class ReceitaService implements Serializable{
 	}
 	
 	public Receita update(Receita obj) {
-		findById(obj.getId());
-		return repo.save(obj);
+		Receita newObj = findById(obj.getId());
+		updateDate(newObj, obj);
+		return repo.save(newObj);
 	}
 	
 	public void delete(Long id) {
@@ -58,5 +59,12 @@ public class ReceitaService implements Serializable{
 	public Receita fromDTO(ReceitaDTO objDTO) {
 		return new Receita(objDTO.getId(), objDTO.getDescricao(), objDTO.getProprio(), 
 				objDTO.getPercentual(), objDTO.getAtivo(), null);
+	}
+	
+	private void updateDate(Receita newObj, Receita obj) {
+		newObj.setDescricao(obj.getDescricao());
+		newObj.setProprio(obj.getProprio());
+		newObj.setPercentual(obj.getPercentual());
+		newObj.setAtivo(obj.getAtivo());
 	}
 }
