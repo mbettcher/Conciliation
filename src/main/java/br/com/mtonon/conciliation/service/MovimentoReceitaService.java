@@ -33,6 +33,13 @@ public class MovimentoReceitaService implements Serializable{
 				);
 	}
 	
+	public MovimentoReceita findByAnoAndMes(Integer ano, Integer mes) {
+		Optional<MovimentoReceita> obj = repo.findByAnoAndMes(ano, mes);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Ano: " + ano + ", Mês: " + mes + ", Tipo: " + MovimentoReceita.class.getName())
+				);
+	}
+	
 	public MovimentoReceita save(MovimentoReceita obj) {
 		obj.setId(null);
 		return repo.save(obj);

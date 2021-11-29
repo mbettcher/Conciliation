@@ -25,34 +25,31 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "movimento_despesa")
-public class MovimentoDespesa implements Serializable{
+public class MovimentoDespesa implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "codigo")
 	private Long id;
-	
+
 	@Column(name = "exercicio")
 	private Integer ano;
-	
+
 	@Column(name = "competencia")
 	private Integer mes;
-	
+
 	@Column(name = "data_movimento")
 	private LocalDate dataMovimento;
-	
+
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "movimento_tem_despesa",
-			joinColumns = @JoinColumn(name = "movimento_codigo"),
-			inverseJoinColumns = @JoinColumn(name = "despesa_codigo")
-			)
+	@JoinTable(name = "movimento_tem_despesa", joinColumns = @JoinColumn(name = "movimento_codigo"), inverseJoinColumns = @JoinColumn(name = "despesa_codigo"))
 	private List<Despesa> despesas = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "id.movimentoDespesa")
 	private Set<ItemMovimentoDespesa> itens = new HashSet<>();
-	
+
 	public MovimentoDespesa() {
 	}
 
@@ -64,14 +61,36 @@ public class MovimentoDespesa implements Serializable{
 		this.dataMovimento = dataMovimento;
 	}
 
-	public BigDecimal getTotalDespesa() {
+	public BigDecimal getTotalDespesa70() {
 		BigDecimal soma = new BigDecimal(0.0000).setScale(4, RoundingMode.HALF_EVEN);
-		for(ItemMovimentoDespesa id : itens) {
+		BigDecimal percentual = new BigDecimal(0.7000).setScale(4, RoundingMode.HALF_EVEN);
+		for (ItemMovimentoDespesa id : itens) {
+			if (id.getDespesa().getFundeb().compareTo(percentual) == 0) {
+				soma = soma.add(id.getValor());
+			}
+		}
+		return soma;
+	}
+
+	public BigDecimal getTotalDespesa30() {
+		BigDecimal soma = new BigDecimal(0.0000).setScale(4, RoundingMode.HALF_EVEN);
+		BigDecimal percentual = new BigDecimal(0.3000).setScale(4, RoundingMode.HALF_EVEN);
+		for (ItemMovimentoDespesa id : itens) {
+			if (id.getDespesa().getFundeb().compareTo(percentual) == 0) {
+				soma = soma.add(id.getValor());
+			}
+		}
+		return soma;
+	}
+
+	public BigDecimal getTotalGeralDespesa() {
+		BigDecimal soma = new BigDecimal(0.0000).setScale(4, RoundingMode.HALF_EVEN);
+		for (ItemMovimentoDespesa id : itens) {
 			soma = soma.add(id.getValor());
 		}
 		return soma;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.mtonon.conciliation.domain.MovimentoReceita;
@@ -28,6 +29,14 @@ public class MovimentoReceitaResource {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<MovimentoReceita> findById(@PathVariable Long id) {
 		MovimentoReceita obj = movimentoReceitaService.findById(id);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	@RequestMapping(value = "/competencia", method = RequestMethod.GET)
+	public ResponseEntity<MovimentoReceita> findByAnoAndMes(
+			@RequestParam(name = "ano") Integer ano, 
+			@RequestParam(name = "mes") Integer mes) {
+		MovimentoReceita obj = movimentoReceitaService.findByAnoAndMes(ano, mes);
 		return ResponseEntity.ok().body(obj);
 	}
 	
