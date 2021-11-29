@@ -1,6 +1,7 @@
 package br.com.mtonon.conciliation.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,7 +38,7 @@ public class Receita implements Serializable{
 	private Boolean proprio;
 	
 	@Column(name = "percentual_repasse")
-	private Double percentual;
+	private BigDecimal percentual;
 	
 	@Column(name = "ativo")
 	private Boolean ativo;
@@ -57,7 +58,7 @@ public class Receita implements Serializable{
 	public Receita() {
 	}
 
-	public Receita(Long id, String descricao, Boolean proprio, Double percentual, Boolean ativo,
+	public Receita(Long id, String descricao, Boolean proprio, BigDecimal percentual, Boolean ativo,
 			LocalDateTime dataCadastro) {
 		super();
 		this.id = id;
@@ -101,11 +102,11 @@ public class Receita implements Serializable{
 		this.proprio = proprio;
 	}
 
-	public Double getPercentual() {
+	public BigDecimal getPercentual() {
 		return percentual;
 	}
 
-	public void setPercentual(Double percentual) {
+	public void setPercentual(BigDecimal percentual) {
 		this.percentual = percentual;
 	}
 

@@ -1,6 +1,8 @@
 package br.com.mtonon.conciliation.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -62,10 +64,10 @@ public class MovimentoDespesa implements Serializable{
 		this.dataMovimento = dataMovimento;
 	}
 
-	public double getTotalDespesa() {
-		double soma = 0.00;
+	public BigDecimal getTotalDespesa() {
+		BigDecimal soma = new BigDecimal(0.0000).setScale(4, RoundingMode.HALF_EVEN);
 		for(ItemMovimentoDespesa id : itens) {
-			soma = soma + id.getValor();
+			soma = soma.add(id.getValor());
 		}
 		return soma;
 	}

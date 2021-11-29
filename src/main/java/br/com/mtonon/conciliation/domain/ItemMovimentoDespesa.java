@@ -1,6 +1,7 @@
 package br.com.mtonon.conciliation.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -21,12 +22,12 @@ public class ItemMovimentoDespesa implements Serializable{
 	private ItemMovimentoDespesaPK id = new ItemMovimentoDespesaPK();
 	
 	@Column(name = "total_despesa")
-	private Double valor;
+	private BigDecimal valor;
 	
 	public ItemMovimentoDespesa() {
 	}
 
-	public ItemMovimentoDespesa(MovimentoDespesa movimento, Despesa despesa, Double valor) {
+	public ItemMovimentoDespesa(MovimentoDespesa movimento, Despesa despesa, BigDecimal valor) {
 		super();
 		this.id.setMovimento(movimento);
 		this.id.setDespesa(despesa);
@@ -42,11 +43,11 @@ public class ItemMovimentoDespesa implements Serializable{
 		return this.id.getDespesa();
 	}
 
-	public Double getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
 
-	public void setValor(Double valor) {
+	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
 

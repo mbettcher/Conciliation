@@ -1,6 +1,7 @@
 package br.com.mtonon.conciliation.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,7 +38,7 @@ public class Despesa implements Serializable{
 	private String descricao;
 	
 	@Column(name = "percentual_fundeb")
-	private Double fundeb;
+	private BigDecimal fundeb;
 	
 	@Column(name = "ativo")
 	private Boolean ativo;
@@ -57,7 +58,7 @@ public class Despesa implements Serializable{
 	public Despesa() {
 	}
 
-	public Despesa(Long id, String conta, String descricao, Double fundeb, Boolean ativo, LocalDateTime dataCadastro) {
+	public Despesa(Long id, String conta, String descricao, BigDecimal fundeb, Boolean ativo, LocalDateTime dataCadastro) {
 		super();
 		this.id = id;
 		this.conta = conta;
@@ -100,11 +101,11 @@ public class Despesa implements Serializable{
 		this.descricao = descricao;
 	}
 
-	public Double getFundeb() {
+	public BigDecimal getFundeb() {
 		return fundeb;
 	}
 
-	public void setFundeb(Double fundeb) {
+	public void setFundeb(BigDecimal fundeb) {
 		this.fundeb = fundeb;
 	}
 

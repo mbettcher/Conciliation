@@ -1,5 +1,7 @@
 package br.com.mtonon.conciliation;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -51,16 +53,16 @@ public class ConciliationApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		
 		/* Instanciação dos objetos Receita */
-		Receita receita1 = new Receita(null, "ICMS", false, 0.05, true, LocalDateTime.now());
-		Receita receita2 = new Receita(null, "FPM", false, 0.05, true, LocalDateTime.now());
-		Receita receita3 = new Receita(null, "IPI", false, 0.05, true, LocalDateTime.now());
-		Receita receita4 = new Receita(null, "LEI COMPLEMENTAR 87/96", false, 0.05, true, LocalDateTime.now());
-		Receita receita5 = new Receita(null, "ITR", false, 0.05, true, LocalDateTime.now());
-		Receita receita6 = new Receita(null, "IPVA", false, 0.05, true, LocalDateTime.now());
-		Receita receita7 = new Receita(null, "IPTU", true, 0.25, true, LocalDateTime.now());
+		Receita receita1 = new Receita(null, "ICMS", false, new BigDecimal(0.0500), true, LocalDateTime.now());
+		Receita receita2 = new Receita(null, "FPM", false, new BigDecimal(0.0500), true, LocalDateTime.now());
+		Receita receita3 = new Receita(null, "IPI", false, new BigDecimal(0.0500), true, LocalDateTime.now());
+		Receita receita4 = new Receita(null, "LEI COMPLEMENTAR 87/96", false, new BigDecimal(0.05), true, LocalDateTime.now());
+		Receita receita5 = new Receita(null, "ITR", false, new BigDecimal(0.0500), true, LocalDateTime.now());
+		Receita receita6 = new Receita(null, "IPVA", false, new BigDecimal(0.0500), true, LocalDateTime.now());
+		Receita receita7 = new Receita(null, "IPTU", true, new BigDecimal(0.2500), true, LocalDateTime.now());
 		
 		/* Instanciação do objeto MovimentoReceita*/
-		MovimentoReceita movimento1 = new MovimentoReceita(null, 2021, 1, LocalDate.now(), 274.42, 474.27, 8601675.33);
+		MovimentoReceita movimento1 = new MovimentoReceita(null, 2021, 1, LocalDate.now(), new BigDecimal(274.4200).setScale(4, RoundingMode.HALF_EVEN), new BigDecimal(474.27).setScale(4, RoundingMode.HALF_EVEN), new BigDecimal(8601675.3300).setScale(4, RoundingMode.HALF_EVEN));
 		
 		/* Peenchimento da Lista */
 		receita1.getMovimentosReceita().addAll(Arrays.asList(movimento1));
@@ -78,13 +80,13 @@ public class ConciliationApplication implements CommandLineRunner{
 		movimentoReceitaRepository.saveAll(Arrays.asList(movimento1));
 		
 		
-		ItemMovimentoReceita itemReceita1 = new ItemMovimentoReceita(movimento1, receita1, 2854606.27);
-		ItemMovimentoReceita itemReceita2 = new ItemMovimentoReceita(movimento1, receita2, 4982544.64);
-		ItemMovimentoReceita itemReceita3 = new ItemMovimentoReceita(movimento1, receita3, 53519.54);
-		ItemMovimentoReceita itemReceita4 = new ItemMovimentoReceita(movimento1, receita4, 0.00);
-		ItemMovimentoReceita itemReceita5 = new ItemMovimentoReceita(movimento1, receita5, 652.63);
-		ItemMovimentoReceita itemReceita6 = new ItemMovimentoReceita(movimento1, receita6, 1084912.83);
-		ItemMovimentoReceita itemReceita7 = new ItemMovimentoReceita(movimento1, receita7, 11065769.37);
+		ItemMovimentoReceita itemReceita1 = new ItemMovimentoReceita(movimento1, receita1, new BigDecimal(2854606.27));
+		ItemMovimentoReceita itemReceita2 = new ItemMovimentoReceita(movimento1, receita2, new BigDecimal(4982544.64));
+		ItemMovimentoReceita itemReceita3 = new ItemMovimentoReceita(movimento1, receita3, new BigDecimal(53519.54));
+		ItemMovimentoReceita itemReceita4 = new ItemMovimentoReceita(movimento1, receita4, new BigDecimal(0.00));
+		ItemMovimentoReceita itemReceita5 = new ItemMovimentoReceita(movimento1, receita5, new BigDecimal(652.63));
+		ItemMovimentoReceita itemReceita6 = new ItemMovimentoReceita(movimento1, receita6, new BigDecimal(1084912.83));
+		ItemMovimentoReceita itemReceita7 = new ItemMovimentoReceita(movimento1, receita7, new BigDecimal(11065769.37));
 		
 		movimento1.getItens().addAll(Arrays.asList(itemReceita1,itemReceita2,itemReceita3,itemReceita4,itemReceita5,itemReceita6,itemReceita7));
 		receita1.getItens().add(itemReceita1);
@@ -97,11 +99,11 @@ public class ConciliationApplication implements CommandLineRunner{
 		
 		itemMovimentoReceitaRepository.saveAll(Arrays.asList(itemReceita1, itemReceita2, itemReceita3, itemReceita4, itemReceita5, itemReceita6, itemReceita7));
 	
-		Despesa d1 = new Despesa(null, "3.1.90.04", "Ensino Fundamental Contrato Determinado", 0.70, true, LocalDateTime.now());
-		Despesa d2 = new Despesa(null, "3.1.90.11", "Ensino Fundamental Vencimento Vantagens Fixas", 0.70, true, LocalDateTime.now());
-		Despesa d3 = new Despesa(null, "3.1.90.16", "Ensino Fundamental Outras Despesas Pessoal", 0.70, true, LocalDateTime.now());
-		Despesa d4 = new Despesa(null, "3.1.90.13", "Ensino Fundamental Obrigações Patronais INSS", 0.70, true, LocalDateTime.now());
-		Despesa d5 = new Despesa(null, "3.1.91.13", "Ensino Fundamental Obrigações Patronais IPG", 0.70, true, LocalDateTime.now());
+		Despesa d1 = new Despesa(null, "3.1.90.04", "Ensino Fundamental Contrato Determinado", new BigDecimal(0.7000), true, LocalDateTime.now());
+		Despesa d2 = new Despesa(null, "3.1.90.11", "Ensino Fundamental Vencimento Vantagens Fixas", new BigDecimal(0.7000), true, LocalDateTime.now());
+		Despesa d3 = new Despesa(null, "3.1.90.16", "Ensino Fundamental Outras Despesas Pessoal", new BigDecimal(0.7000), true, LocalDateTime.now());
+		Despesa d4 = new Despesa(null, "3.1.90.13", "Ensino Fundamental Obrigações Patronais INSS", new BigDecimal(0.7000), true, LocalDateTime.now());
+		Despesa d5 = new Despesa(null, "3.1.91.13", "Ensino Fundamental Obrigações Patronais IPG", new BigDecimal(0.7000), true, LocalDateTime.now());
 		
 		MovimentoDespesa md1 = new MovimentoDespesa(null, 2021, 1, LocalDate.now());
 		
@@ -116,11 +118,11 @@ public class ConciliationApplication implements CommandLineRunner{
 		despesaRepository.saveAll(Arrays.asList(d1,d2,d3,d4,d5));
 		movimentoDespesaRepository.saveAll(Arrays.asList(md1));
 		
-		ItemMovimentoDespesa imd1 = new ItemMovimentoDespesa(md1, d1, 1203499.90);
-		ItemMovimentoDespesa imd2 = new ItemMovimentoDespesa(md1, d2, 0.00);
-		ItemMovimentoDespesa imd3 = new ItemMovimentoDespesa(md1, d3, 0.00);
-		ItemMovimentoDespesa imd4 = new ItemMovimentoDespesa(md1, d4, 0.00);
-		ItemMovimentoDespesa imd5 = new ItemMovimentoDespesa(md1, d5, 460590.62);
+		ItemMovimentoDespesa imd1 = new ItemMovimentoDespesa(md1, d1, new BigDecimal(1203499.9000));
+		ItemMovimentoDespesa imd2 = new ItemMovimentoDespesa(md1, d2, new BigDecimal(0.0000));
+		ItemMovimentoDespesa imd3 = new ItemMovimentoDespesa(md1, d3, new BigDecimal(0.0000));
+		ItemMovimentoDespesa imd4 = new ItemMovimentoDespesa(md1, d4, new BigDecimal(0.0000));
+		ItemMovimentoDespesa imd5 = new ItemMovimentoDespesa(md1, d5, new BigDecimal(460590.6200));
 		
 		md1.getItens().addAll(Arrays.asList(imd1,imd2,imd3,imd4,imd5));
 		d1.getItens().add(imd1);

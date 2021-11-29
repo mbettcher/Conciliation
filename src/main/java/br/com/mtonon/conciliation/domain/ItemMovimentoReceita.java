@@ -1,6 +1,7 @@
 package br.com.mtonon.conciliation.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -21,12 +22,12 @@ public class ItemMovimentoReceita implements Serializable{
 	private ItemMovimentoReceitaPK id = new ItemMovimentoReceitaPK();
 	
 	@Column(name = "total_arrecadado")
-	private Double valorArrecadado;
+	private BigDecimal valorArrecadado;
 	
 	public ItemMovimentoReceita() {
 	}
 
-	public ItemMovimentoReceita(MovimentoReceita movimentoReceita, Receita receita, Double valorArrecadado) {
+	public ItemMovimentoReceita(MovimentoReceita movimentoReceita, Receita receita, BigDecimal valorArrecadado) {
 		super();
 		this.id.setMovimentoReceita(movimentoReceita);
 		this.id.setReceita(receita);
@@ -43,11 +44,11 @@ public class ItemMovimentoReceita implements Serializable{
 		return this.id.getReceita();
 	}
 
-	public Double getValorArrecadado() {
+	public BigDecimal getValorArrecadado() {
 		return valorArrecadado;
 	}
 
-	public void setValorArrecadado(Double valorArrecadado) {
+	public void setValorArrecadado(BigDecimal valorArrecadado) {
 		this.valorArrecadado = valorArrecadado;
 	}
 

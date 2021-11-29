@@ -1,6 +1,7 @@
 package br.com.mtonon.conciliation.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -22,7 +23,7 @@ public class ReceitaDTO implements Serializable{
 	
 	@NotNull(message = "O campo percentual de repasse para FUNDEB não pode ser nulo!")
 	@Min(0)
-	private Double percentual;
+	private BigDecimal percentual;
 	
 	private Boolean ativo;
 	
@@ -61,11 +62,11 @@ public class ReceitaDTO implements Serializable{
 		this.proprio = proprio;
 	}
 
-	public Double getPercentual() {
+	public BigDecimal getPercentual() {
 		return percentual;
 	}
 
-	public void setPercentual(Double percentual) {
+	public void setPercentual(BigDecimal percentual) {
 		this.percentual = percentual;
 	}
 

@@ -1,6 +1,7 @@
 package br.com.mtonon.conciliation.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -19,7 +20,7 @@ public class DespesaDTO implements Serializable{
 	private String descricao;
 	
 	@NotNull(message = "O campo Percentual de Aplicação deve ser informado!")
-	private Double fundeb;
+	private BigDecimal fundeb;
 	
 	private Boolean ativo;
 	
@@ -59,11 +60,11 @@ public class DespesaDTO implements Serializable{
 		this.descricao = descricao;
 	}
 
-	public Double getFundeb() {
+	public BigDecimal getFundeb() {
 		return fundeb;
 	}
 
-	public void setFundeb(Double fundeb) {
+	public void setFundeb(BigDecimal fundeb) {
 		this.fundeb = fundeb;
 	}
 

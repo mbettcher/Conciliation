@@ -1,6 +1,8 @@
 package br.com.mtonon.conciliation.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -42,11 +44,11 @@ public class MovimentoReceita implements Serializable{
 	@Column(name = "data_movimento")
 	private LocalDate dataMovimento;
 	
-	private double rendimentoF30;
+	private BigDecimal rendimentoF30;
 	
-	private double rendimentoF70;
+	private BigDecimal rendimentoF70;
 	
-	private double repasseDoFundeb;
+	private BigDecimal repasseDoFundeb;
 
 	@JsonIgnore
 	@ManyToMany
@@ -62,8 +64,8 @@ public class MovimentoReceita implements Serializable{
 	public MovimentoReceita() {
 	}
 
-	public MovimentoReceita(Long id, Integer ano, Integer mes, LocalDate dataMovimento, double rendimentoF30,
-			double rendimentoF70, double repasseDoFundeb) {
+	public MovimentoReceita(Long id, Integer ano, Integer mes, LocalDate dataMovimento, BigDecimal rendimentoF30,
+			BigDecimal rendimentoF70, BigDecimal repasseDoFundeb) {
 		super();
 		this.id = id;
 		this.ano = ano;
@@ -74,32 +76,32 @@ public class MovimentoReceita implements Serializable{
 		this.repasseDoFundeb = repasseDoFundeb;
 	}
 	
-	public double getTotalRendimentos() {
-		return rendimentoF30 + rendimentoF70;
+	public BigDecimal getTotalRendimentos() {
+		return rendimentoF30.add(rendimentoF70);
 	}
 	
-	public double getTotalRendimentosMaisRepasse() {
-		return  rendimentoF30 + rendimentoF70 + repasseDoFundeb;
+	public BigDecimal getTotalRendimentosMaisRepasse() {
+		return repasseDoFundeb.add(rendimentoF30.add(rendimentoF70));
 	}
 
-	public double getSubtotalNaoProprio() {
-		double soma = 0.0;
+	public BigDecimal getSubtotalNaoProprio() {
+		BigDecimal soma = new BigDecimal(0.0000).setScale(4, RoundingMode.HALF_EVEN);
 		for(ItemMovimentoReceita ir : itens) {
 			if(!ir.getReceita().getProprio()) {
-				soma = soma + ir.getValorArrecadado();
+				soma = soma.add(ir.getValorArrecadado());
 			}
 		}
 		return soma;
 	}
 	
-	public float getSubtotalProprio() {
-		double soma = 0.0;
+	public BigDecimal getSubtotalProprio() {
+		BigDecimal soma = new BigDecimal(0.0000).setScale(4, RoundingMode.HALF_EVEN);
 		for(ItemMovimentoReceita ir : itens) {
 			if(ir.getReceita().getProprio()) {
-				soma = soma + ir.getValorArrecadado();
+				soma = soma.add(ir.getValorArrecadado());
 			}
 		}
-		return (float) soma;
+		return soma;
 	}
 	
 
@@ -136,27 +138,27 @@ public class MovimentoReceita implements Serializable{
 	}
 
 
-	public double getRendimentoF30() {
+	public BigDecimal getRendimentoF30() {
 		return rendimentoF30;
 	}
 
-	public void setRendimentoF30(double rendimentoF30) {
+	public void setRendimentoF30(BigDecimal rendimentoF30) {
 		this.rendimentoF30 = rendimentoF30;
 	}
 
-	public double getRendimentoF70() {
+	public BigDecimal getRendimentoF70() {
 		return rendimentoF70;
 	}
 
-	public void setRendimentoF70(double rendimentoF70) {
+	public void setRendimentoF70(BigDecimal rendimentoF70) {
 		this.rendimentoF70 = rendimentoF70;
 	}
 
-	public double getRepasseDoFundeb() {
+	public BigDecimal getRepasseDoFundeb() {
 		return repasseDoFundeb;
 	}
 
-	public void setRepasseDoFundeb(double repasseDoFundeb) {
+	public void setRepasseDoFundeb(BigDecimal repasseDoFundeb) {
 		this.repasseDoFundeb = repasseDoFundeb;
 	}
 
